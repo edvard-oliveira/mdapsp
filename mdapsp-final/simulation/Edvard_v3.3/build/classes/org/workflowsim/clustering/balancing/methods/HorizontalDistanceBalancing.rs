@@ -1,0 +1,2 @@
+org.workflowsim.clustering.balancing.methods.HorizontalDistanceBalancing
+org.workflowsim.clustering.balancing.methods.Distance

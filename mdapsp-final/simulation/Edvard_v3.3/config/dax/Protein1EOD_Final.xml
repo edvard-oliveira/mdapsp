@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+
+   Arquivo DAX gerado em 19/09/2017
+   Autores: Edvard de Oliveira / Mário Henrique de Souza Pardo
+   Aplicação: Processamento de Proteína 1EOD
+   
+-->
+ 
+<adag 	xmlns="http://pegasus.isi.edu/schema/DAX" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="http://pegasus.isi.edu/schema/DAX http://pegasus.isi.edu/schema/dax-2.1.xsd" 
+        version="2.1" count="1" index="1" name="Protein_1EOD" jobCount="22" fileCount="31" childCount="21">
+		
+    <!-- part 0: Protein Processing - Parameters Definition -->
+
+    <parameters amin="75" pop="99" ger="100" objectives="4" deadline="2000" overhead="65"/>
+		
+    <!-- part 1: list of all referenced files (may be empty) -->
+
+    <!-- part 2: definition of all jobs (at least one) -->
+
+    <job id="ID00001" namespace="Protein_1EOD" name="selection" version="1.0" runtime="41.0">
+  
+        <uses file="dataset1.dat" link="input" register="true" transfer="true" optional="false" type="data" size="131"/>
+        <uses file="dataset2.dat" link="output" register="false" transfer="true" optional="false" type="data" size="131"/>
+	
+    </job>
+  
+    <job id="ID00002" namespace="Protein_1EOD" name="build" version="1.0" runtime="362.0">
+  
+        <uses file="dataset2.dat" link="input" register="true" transfer="true" optional="false" type="data" size="131"/>
+        <uses file="dataset3.dat" link="output" register="false" transfer="true" optional="false" type="data" size="86722"/>
+    
+    </job>
+ 
+    <job id="ID00003" namespace="Protein_1EOD" name="psp" version="1.0" runtime="896.0">
+   
+        <uses file="dataset3.dat" link="input" register="true" transfer="true" optional="false" type="data" size="86722"/>
+        <uses file="dataset4.dat" link="output" register="false" transfer="true" optional="false" type="data" size="97411"/>
+    
+    </job>
+  
+    <!-- Partes Específicas do Workflow 1EOD -->
+  
+    <job id="ID00004" namespace="Protein_1EOD" name="psp_search_pdb_atom_from_resnum_atom_name" version="1.0" runtime="6510.0">
+   
+        <uses file="dataset4.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="97411"/>
+        <uses file="dataset5.dat" link="output" register="false" transfer="true" optional="false" type="data" size="168823"/>
+ 
+    </job>
+    
+    <job id="ID00005" namespace="Protein_1EOD" name="psp_rotation_by_angle_dih" version="1.0" runtime="1440.0">
+   
+        <uses file="dataset5.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="168823"/>
+        <uses file="dataset6.dat" link="output" register="false" transfer="true" optional="false" type="data" size="196206"/>
+ 
+    </job>
+    
+    <job id="ID00006" namespace="Protein_1EOD" name="psp_write_ATOM" version="1.0" runtime="300.0">
+   
+        <uses file="dataset6.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="196206"/>
+        <uses file="dataset7.dat" link="output" register="false" transfer="true" optional="false" type="data" size="202838"/>
+ 
+    </job>
+  
+    <job id="ID00007" namespace="Protein_1EOD" name="psp_get_res_name_from_res_num" version="1.0" runtime="120.0">
+
+        <uses file="dataset7a.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="202838"/>
+        <uses file="dataset8.dat" link="output" register="false" transfer="true" optional="false" type="data" size="205576"/>
+ 
+    </job>
+  
+    <job id="ID00008" namespace="Protein_1EOD" name="psp_is_equal" version="1.0" runtime="60.0">
+   
+        <uses file="dataset7b.dat" link="input" register="true" transfer="true" optional="false" type="data" size="202838"/>
+        <uses file="dataset9.dat" link="output" register="false" transfer="true" optional="false" type="data" size="206974"/>
+ 
+    </job>  
+    
+    <job id="ID00009" namespace="Protein_1EOD" name="psp_write_top_residue_atom_info_side_chain" version="1.0" runtime="60.0">
+   
+        <uses file="dataset8.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="205576"/>
+        <uses file="dataset9.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="206974"/>
+        <uses file="dataset10.dat" link="output" register="false" transfer="true" optional="false" type="data" size="208382"/>
+ 
+    </job> 
+    
+    <job id="ID00010" namespace="Protein_1EOD" name="psp_copy_pdb_atom" version="1.0" runtime="60.0">
+   
+        <uses file="dataset10.dat" link="input" register="true" transfer="true" optional="false" type="data" size="208382"/>
+        <uses file="dataset11.dat" link="output" register="false" transfer="true" optional="false" type="data" size="209799"/>
+ 
+    </job>
+    
+    <job id="ID00011" namespace="Protein_1EOD" name="psp_get_atom_index_by_resnum_atom_name" version="1.0" runtime="30.0">
+   
+        <uses file="dataset11.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="209799"/>
+        <uses file="dataset12.dat" link="output" register="false" transfer="true" optional="false" type="data"   size="210512"/>
+ 
+    </job> 
+    
+    <job id="ID00012" namespace="Protein_1EOD" name="psp_run_program" version="1.0" runtime="30.0">
+   
+        <uses file="dataset12.dat" link="input" register="true" transfer="true" optional="false" type="data"   size="210512"/>
+        <uses file="dataset13.dat" link="output" register="false" transfer="true" optional="false" type="data" size="211228"/>
+ 
+    </job>
+    
+    <job id="ID00013" namespace="Protein_1EOD" name="psp_write_top_residue_atom_info" version="1.0" runtime="30.0">
+   
+        <uses file="dataset13a.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="211228"/>
+        <uses file="dataset14.dat" link="output" register="false" transfer="true" optional="false" type="data" size="211946"/>
+ 
+    </job> 
+    
+    <job id="ID00014" namespace="Protein_1EOD" name="psp_build_topology_individual_phi" version="1.0" runtime="30.0">
+   
+        <uses file="dataset13b.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="211228"/>
+        <uses file="dataset15.dat" link="output" register="false" transfer="true" optional="false" type="data" size="212666"/>
+ 
+    </job> 
+    
+    <job id="ID00015" namespace="Protein_1EOD" name="psp_build_topology_individual_atoms" version="1.0" runtime="30.0">
+   
+        <uses file="dataset13c.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="211228"/>
+        <uses file="dataset16.dat" link="output" register="false" transfer="true" optional="false" type="data" size="213389"/>
+ 
+    </job> 
+    
+    <job id="ID00016" namespace="Protein_1EOD" name="psp_build_tpr_file" version="1.0" runtime="30.0">
+   
+        <uses file="dataset13d.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="211228"/>
+        <uses file="dataset17.dat" link="output" register="false" transfer="true" optional="false" type="data" size="214115"/>
+ 
+    </job> 
+    
+    <job id="ID00017" namespace="Protein_1EOD" name="psp_get_atom_name_from_atomid" version="1.0" runtime="30.0">
+   
+        <uses file="dataset14.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="211946"/>
+        <uses file="dataset15.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="212666"/>
+        <uses file="dataset16.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="213389"/>
+        <uses file="dataset17.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="214115"/>
+        
+        <uses file="dataset18.dat" link="output" register="false" transfer="true" optional="false" type="data" size="214843"/>
+ 
+    </job>    
+    
+    <job id="ID00018" namespace="Protein_1EOD" name="psp_is_fixed_atom" version="1.0" runtime="30.0">
+   
+        <uses file="dataset18.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="214843"/>
+        <uses file="dataset19.dat" link="output" register="false" transfer="true" optional="false" type="data" size="215573"/>
+ 
+    </job> 
+    
+    <job id="ID00019" namespace="Protein_1EOD" name="psp_save_population_file" version="1.0" runtime="30.0">
+   
+        <uses file="dataset19.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="215573"/>
+        <uses file="dataset20.dat" link="output" register="false" transfer="true" optional="false" type="data" size="216306"/>
+ 
+    </job> 
+    
+    <job id="ID00020" namespace="Protein_1EOD" name="psp_search_pdb_atom_from_resnum_atomid" version="1.0" runtime="30.0">
+   
+        <uses file="dataset20a.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="216306"/>
+        <uses file="dataset21.dat" link="output" register="false" transfer="true" optional="false" type="data" size="217042"/>
+ 
+    </job> 
+    
+    <job id="ID00021" namespace="Protein_1EOD" name="psp_load_pdb_atoms" version="1.0" runtime="30.0">
+   
+        <uses file="dataset20b.dat" link="input"  register="true"  transfer="true"  optional="false" type="data" size="216306"/>
+        <uses file="dataset22.dat" link="output" register="false" transfer="true" optional="false" type="data" size="217411"/>
+ 
+    </job> 
+    
+    <job id="ID00022" namespace="Protein_1EOD" name="psp_write_header" version="1.0" runtime="30.0">
+   
+        <uses file="dataset21.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="217042"/>
+        <uses file="dataset22.dat"  link="input"  register="true"  transfer="true"  optional="false" type="data" size="217411"/>
+        
+        <uses file="final_result.dat" link="output" register="false" transfer="true" optional="false" type="data" size="217780"/>
+ 
+    </job> 
+       
+    <!-- part 3: list of control-flow dependencies (may be empty) -->
+
+    <child ref="ID00002">
+        <parent ref="ID00001"/>
+    </child>
+  
+    <child ref="ID00003">
+        <parent ref="ID00002"/>
+    </child>
+
+    <child ref="ID00004">
+        <parent ref="ID00003"/>
+    </child>
+  
+    <child ref="ID00005">
+        <parent ref="ID00004"/>
+    </child>
+    
+    <child ref="ID00006">
+        <parent ref="ID00005"/>
+    </child>
+
+    <child ref="ID00007">
+        <parent ref="ID00006"/>
+    </child>
+    
+    <child ref="ID00008">
+        <parent ref="ID00006"/>
+    </child>
+    
+    <child ref="ID00009">
+        <parent ref="ID00007"/>
+        <parent ref="ID00008"/>
+    </child>
+ 
+    <child ref="ID00010">
+        <parent ref="ID00009"/>
+    </child>
+   
+    <child ref="ID00011">
+        <parent ref="ID00010"/>
+    </child>
+    
+    <child ref="ID00012">
+        <parent ref="ID00011"/>
+    </child>
+    
+    <child ref="ID00013">
+        <parent ref="ID00012"/>
+    </child>
+    
+    <child ref="ID00014">
+        <parent ref="ID00012"/>
+    </child>
+    
+    <child ref="ID00015">
+        <parent ref="ID00012"/>
+    </child>
+
+    <child ref="ID00016">
+        <parent ref="ID00012"/>
+    </child>
+  
+    <child ref="ID00017">
+        <parent ref="ID00013"/>
+        <parent ref="ID00014"/>
+        <parent ref="ID00015"/>
+        <parent ref="ID00016"/>
+    </child>
+    
+    <child ref="ID00018">
+        <parent ref="ID00017"/>
+    </child>
+      
+    <child ref="ID00019">
+        <parent ref="ID00018"/>
+    </child>
+          
+    <child ref="ID00020">
+        <parent ref="ID00019"/>
+    </child>
+    
+    <child ref="ID00021">
+        <parent ref="ID00019"/>
+    </child>
+            
+    <child ref="ID00022">
+        <parent ref="ID00020"/>
+        <parent ref="ID00021"/>
+    </child>  
+                    
+</adag>

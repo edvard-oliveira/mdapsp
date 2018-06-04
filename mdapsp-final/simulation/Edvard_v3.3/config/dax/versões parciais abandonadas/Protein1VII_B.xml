@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+   Arquivo DAX gerado em 19/09/2017
+   Autores: Edvard de Oliveira / Mário Henrique de Souza Pardo
+   Aplicação: Processamento de Proteína 1VII
+
+ -->
+<adag 	xmlns="http://pegasus.isi.edu/schema/DAX" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://pegasus.isi.edu/schema/DAX http://pegasus.isi.edu/schema/dax-2.1.xsd" 
+		version="2.1" count="1" index="1" name="protein_1VII" jobCount="3" fileCount="0" childCount="0">
+
+<!-- part 0: Protein Processing - Parameters Definition -->
+
+<parameters amin="36" pop="50" ger="20" objectives="2" />
+		
+<!-- part 1: list of all referenced files (may be empty) -->
+
+<!-- part 2: definition of all jobs (at least one) -->
+
+  <job id="ID00001" namespace="Protein1VII_B" name="selection" version="1.0" runtime="1.0">
+  
+    <uses file="dataset1.dat" link="input" register="true" transfer="true" optional="false" type="data" size="66"/>
+    <uses file="dataset2.dat" link="output" register="true" transfer="true" optional="false" type="data" size="66"/>
+	
+  </job>
+  <job id="ID00002" namespace="Protein1VII_B" name="build" version="1.0" runtime="1044.0">
+  
+    <uses file="dataset2.dat" link="input" register="true" transfer="true" optional="false" type="data" size="66"/>
+    <uses file="dataset3.dat" link="output" register="true" transfer="true" optional="false" type="data" size="7025459"/>
+    
+ </job>
+  <job id="ID00003" namespace="Protein1VII_B" name="psp" version="1.0" runtime="10968.0">
+   
+    <uses file="dataset3.dat" link="input" register="true" transfer="true" optional="false" type="data"  size="7025459"/>
+    <uses file="dataset4.dat" link="output" register="true" transfer="true" optional="false" type="data" size="2576980377"/>
+    
+  </job>
+  
+<job id="ID00004" namespace="Protein1VII" name="psp_search_pdb_atom_from_resnum_atom_name" version="1.0" runtime="480.0">
+   
+    <uses file="dataset4.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="2576980377"/>
+    <uses file="dataset5.dat" link="output" register="true" transfer="true" optional="false" type="data" size="4097398799"/>
+ 
+  </job>
+  
+  <job id="ID00005" namespace="Protein1VII" name="psp_rotation_by_angle_dih" version="1.0" runtime="210.0">
+   
+    <uses file="dataset5.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="4097398799"/>
+    <uses file="dataset6.dat" link="output" register="true" transfer="true" optional="false" type="data" size="5162722486"/>
+ 
+  </job>
+  
+  <job id="ID00006" namespace="Protein1VII" name="psp_atom_name_exists_in_resnum" version="1.0" runtime="30.0">
+   
+    <uses file="dataset6.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="5162722486"/>
+    <uses file="dataset7.dat" link="output" register="true" transfer="true" optional="false" type="data" size="5353743217"/>
+ 
+  </job>  
+  
+  <job id="ID00007" namespace="Protein1VII" name="psp_copy_pdb_atom" version="1.0" runtime="30.0">
+   
+    <uses file="dataset7.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="5353743217"/>
+    <uses file="dataset8.dat" link="output" register="true" transfer="true" optional="false" type="data" size="5551831716"/>
+ 
+  </job>  
+  
+  <job id="ID00008" namespace="Protein1VII" name="psp_load_pdb_model_file" version="1.0" runtime="30.0">
+   
+    <uses file="dataset8.dat" link="input"  register="true" transfer="true" optional="false" type="data" size="5551831716"/>
+    <uses file="dataset9.dat" link="output" register="true" transfer="true" optional="false" type="data" size="5757249489"/>
+ 
+  </job>  
+  
+  
+  <job id="ID00009" namespace="Protein1VII" name="psp_writeATOM" version="1.0" runtime="30.0">
+   
+    <uses file="dataset9.dat"  link="input"  register="true" transfer="true" optional="false" type="data" size="5757249489"/>
+    <uses file="dataset10.dat" link="output" register="true" transfer="true" optional="false" type="data" size="5970267720"/>
+ 
+  </job>
+  
+  
+<!-- part 3: list of control-flow dependencies (may be empty) -->
+
+ <child ref="ID00002">
+    <parent ref="ID00001"/>
+  </child>
+  
+  <child ref="ID00003">
+    <parent ref="ID00002"/>
+  </child>
+  
+  <child ref="ID00004">
+    <parent ref="ID00003"/>
+	<parent ref="ID00002"/>
+	<parent ref="ID00001"/>
+  </child>
+  
+  <child ref="ID00005">
+    <parent ref="ID00004"/>
+  </child>
+  
+  <child ref="ID00006">
+    <parent ref="ID00004"/>
+  </child>
+  
+  <child ref="ID00007">
+    <parent ref="ID00006"/>
+	<parent ref="ID00005"/>
+
+  </child>
+  
+  <child ref="ID00008">
+    <parent ref="ID00007"/>
+  </child>
+  
+  <child ref="ID00009">
+    <parent ref="ID00008"/>
+  </child>
+  
+</adag>

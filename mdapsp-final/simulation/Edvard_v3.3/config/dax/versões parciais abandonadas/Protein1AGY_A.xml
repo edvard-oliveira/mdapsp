@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+   Arquivo DAX gerado em 19/09/2017
+   Autores: Edvard de Oliveira / Mário Henrique de Souza Pardo
+   Aplicação: Processamento de Proteína 1AGY
+   
+ -->
+<adag 	xmlns="http://pegasus.isi.edu/schema/DAX" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://pegasus.isi.edu/schema/DAX http://pegasus.isi.edu/schema/dax-2.1.xsd" 
+		version="2.1" count="1" index="1" name="protein_1AGY" jobCount="3" fileCount="0" childCount="0">
+		
+<!-- part 0: Protein Processing - Parameters Definition -->
+<parameters amin="200" pop="100" ger="50" objectives="2" />
+		
+<!-- part 1: list of all referenced files (may be empty) -->
+
+<!-- part 2: definition of all jobs (at least one) -->
+
+  <job id="ID00001" namespace="protein_1AGY_A" name="selection" version="1.0" runtime="1.0">
+  
+    <uses file="dataset1.dat" link="input" register="true" transfer="true" optional="false" type="data" size="232"/>
+    <uses file="dataset2.dat" link="output" register="true" transfer="true" optional="false" type="data" size="232"/>
+	
+  </job>
+  <job id="ID00002" namespace="protein_1AGY_A" name="build" version="1.0" runtime="5309.0">
+  
+    <uses file="dataset2.dat" link="input" register="true" transfer="true" optional="false" type="data" size="232"/>
+    <uses file="dataset3.dat" link="output" register="true" transfer="true" optional="false" type="data" size="14365491"/>
+    
+ </job>
+  <job id="ID00003" namespace="protein_1AGY_A" name="psp" version="1.0" runtime="10958.0">
+   
+    <uses file="dataset3.dat" link="input" register="true" transfer="true" optional="false" type="data" size="14365491"/>
+    <uses file="dataset4.dat" link="output" register="true" transfer="true" optional="false" type="data" size="3435973836"/>
+    
+  </job>
+  
+<!-- part 3: list of control-flow dependencies (may be empty) -->
+
+  <child ref="ID00002">
+    <parent ref="ID00001"/>
+  </child>
+  
+  <child ref="ID00003">
+    <parent ref="ID00002"/>
+    <parent ref="ID00001"/>
+  </child>
+  
+</adag>
